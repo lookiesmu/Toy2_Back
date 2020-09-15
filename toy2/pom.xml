@@ -163,6 +163,12 @@
 		    <artifactId>jjwt</artifactId>
 		    <version>0.9.1</version>
 		</dependency>
+		<!-- jwt token 생성시secretkey binding 할때 필요함 -->
+		<dependency> 
+			<groupId>javax.xml.bind</groupId> 
+			<artifactId>jaxb-api</artifactId> 
+			<version>2.1</version> 
+		</dependency>
 
     </dependencies>
 

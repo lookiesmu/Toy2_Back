@@ -16,7 +16,7 @@ public class QuizDto {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setQuizId(int id) { //sql문 응답을 받아 dao에서 jdbc 의 rowMapper가 처리할때 set+"" 부분의 이름을 DB와 비교하고 매칭함.
 		this.id = id;
 	}
 	public String getContent() {

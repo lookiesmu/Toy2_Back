@@ -8,11 +8,12 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 public class CustomUserDetails implements UserDetails {
 	
 	private Long userId;
-    private String userName;
-    private String password;
+    private String nickname;
+	private String password;
     private int quiz_create;
     private List<GrantedAuthority> role= new ArrayList<GrantedAuthority>();
     
@@ -28,16 +29,21 @@ public class CustomUserDetails implements UserDetails {
     public void setUserId(Long userId) {
     	this.userId = userId;
     }
+    public String getNickname() { //db에 attribute name으로 일련의 소문자단어(ex:nickname)일 경우 get+"첫문자 대문자 이후 소문자" 로 getter, setter만들어줘야한다.
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+    
+    
 	
-
-	@Override
-    public String getUsername() {
-        return userName;
-    }
-
-    public void setUsername(String userName) {
-        this.userName = userName;
-    }
+	@Override //Security 에서User 구분을 위해 사용하기위해 Userdetail로부터 상속받은 method. Security 에서 User구분 id가 된다.
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.nickname;
+	}
+	
 
     @Override
     public String getPassword() {
@@ -77,5 +83,6 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role;
     }
+
 
 }

@@ -57,7 +57,7 @@ public class Toy2ControllerApi {
 		
 	}
 	
-	//유저가 만든 퀴즈 등
+	//유저가 만든 퀴즈 등록
 	@PostMapping
 	public void insertUserQuiz(@RequestBody Map<String, Object> requestParam, @AuthenticationPrincipal CustomUserDetails user) {
 		
@@ -79,15 +79,20 @@ public class Toy2ControllerApi {
 		
 		
 	}
-	@PostMapping
-	public Map<String,Object> check(@RequestBody Map<String, Object> requestParam, HttpServletResponse response){
-		if() {
-			response.
-		}
-		
-		
-		return null;
-	}
+//	@PostMapping
+//	public Map<String,Object> check(@RequestBody Map<String, Object> requestParam, 
+//			@AuthenticationPrincipal CustomUserDetails user,
+//			HttpServletResponse response){
+//		Long userId=user.getUserId();
+//		
+//		
+////		if() {
+////			response.setStatus(400);
+////		}
+//		
+//		
+//		return null;
+//	}
 	
 
 }

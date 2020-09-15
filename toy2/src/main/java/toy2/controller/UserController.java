@@ -1,33 +1,44 @@
 package toy2.controller;
 
-import org.springframework.stereotype.Controller;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import toy2.service.MemberService;
+import toy2.service.UserService;
 
-
-
-
-@Controller
-@RequestMapping(path = "/members")
+@RestController
+@RequestMapping("/users")
 public class UserController {
     // 스프링 컨테이너가 생성자를 통해 자동으로 주입한다.
-    private final MemberService memberService;
 
-    public UserController(MemberService memberService){
-        this.memberService = memberService;
-    }
 
-    @GetMapping("/loginform")
-    public String loginform(){
-        return "members/loginform";
-    }
+	@Autowired
+	UserService userService;
+	
+	Logger log= LoggerFactory.getLogger(LoginController.class);
 
-    @RequestMapping("/loginerror")
-    public String loginerror(@RequestParam("login_error")String loginError){
-        return "members/loginerror";
-    }
+	@GetMapping //nickname 중복검사
+	public Map<String,String> checkNickName(@RequestBody Map<String, String> json){
+		String nickname = json.get("nickname");
+		Map<String, String> map = userService.checkNickName(nickname);
+	
+		return map;
+	}
+	
+	@PostMapping("/signup") //회원가입
+	public Map<String,String> signUp(@RequestBody Map<String, String> json){
+		String nickname = json.get("nickname");
+		String password = json.get("password");
+		Map<String, String> map = userService.signUp(nickname, password);
+	
+		return map;
+	}
 
 }

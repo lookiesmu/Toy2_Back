@@ -31,19 +31,19 @@ public class ScoreDao {
         		.withTableName("Score");
     }
     
-    public List<QuizDto> getScore(Long userId) {
-    	try {
-    		Map<String, String> params = new HashMap<>();
-    		
-    		params.put("nickname", nickname);
-    		
-			
-			return jdbc.query(QuizSqls.SELECT_USER_QUIZZES, params, rowMapper);
-			
-		}catch(EmptyResultDataAccessException e) {//해당 조건이 없을경우
-			return null;
-		}
-    }
+//    public List<QuizDto> getScore(String nickname) {
+//    	try {
+//    		Map<String, String> params = new HashMap<>();
+//    		
+//    		params.put("nickname", nickname);
+//    		
+//			
+//			return jdbc.query(QuizSqls.SELECT_USER_QUIZZES, params, rowMapper);
+//			
+//		}catch(EmptyResultDataAccessException e) {//해당 조건이 없을경우
+//			return null;
+//		}
+//    }
 	
 	
 	

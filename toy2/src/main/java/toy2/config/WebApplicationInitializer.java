@@ -1,21 +1,30 @@
 package toy2.config;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-	 @Override
+
+
+	
+	
+	    @Override
 	    protected Class<?>[] getRootConfigClasses() {
 	        return new Class<?>[]{toy2.config.ApplicationConfig.class,
-	        	toy2.config.SecurityConfig.class};
+	        	toy2.config.SecurityConfig.class,
+	        	toy2.config.DBConfig.class};
 	    }
 
 	    // Spring MVC 설정 파일 클래스를 지정한다.
 	    @Override
 	    protected Class<?>[] getServletConfigClasses() {
-	        return new Class<?>[]{toy2.config.WebMvcContextConfiguration.class	        	};
+	        return new Class<?>[]{toy2.config.WebMvcContextConfiguration.class};
 	    }
 
 	    // getServletMapping()은 DispatcherServlet이 매핑되기 위한 하나 혹은 여러 개의 path를 지정한다.

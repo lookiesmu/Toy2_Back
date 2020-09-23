@@ -1,5 +1,6 @@
 package toy2.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -39,6 +40,14 @@ public class UserController {
 		Map<String, String> map = userService.signUp(nickname, password);
 	
 		return map;
+	}
+	
+	@PostMapping(path="/rank")//랭킹 조회
+	   public Map<String, Object> searchRanking(@RequestBody Map<String, String> json){
+	      Long num = Long.valueOf(json.get("userId"));
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      map.put("ranking", userService.searchUserRank(num));
+	      return map;
 	}
 
 }

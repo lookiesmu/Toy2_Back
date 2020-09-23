@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import toy2.dao.UserDao;
 import toy2.dto.QuizDto;
+import toy2.dto.ScoreDto;
 import toy2.dto.UserQuizDto;
 import toy2.service.QuizService;
+import toy2.service.UserService;
 import toy2.service.security.CustomUserDetails;
 
 
@@ -27,6 +30,12 @@ import toy2.service.security.CustomUserDetails;
 public class Toy2ControllerApi {
 	@Autowired
 	private QuizService quizService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	//퀴즈조회
 	@GetMapping
@@ -76,23 +85,52 @@ public class Toy2ControllerApi {
 		else {
 			System.out.println("User Quiz insert success");
 		}
+				
+	}
+	
+	
+	//Score 등록
+	@PostMapping(path="/{nickname}")
+	public Map<String, Object> insertScore(@RequestBody Map<String, Object> requestParam, 
+			@PathVariable (name = "nickname") String nickname,
+			@AuthenticationPrincipal CustomUserDetails user) {
+//		{"answerer": "answerer_nickname",
+//			"score":"40"}
+		int flag;
+		Map<String, Object> map = new HashMap<>();
+		
+		String examiner=nickname;
+		String answerer=(String) requestParam.get("answerer");
+		String score=(String) requestParam.get("score");
+		
+		ScoreDto scoreDto=new ScoreDto();
+		Long answererId=userDao.findByNickName(answerer).getUserId();
+		if (quizService.checkExistAnswerer(answererId)) { //중복없으면
+			scoreDto.setAnswerer(answererId);
+			scoreDto.setExaminer(userDao.findByNickName(examiner).getUserId());
+			scoreDto.setScore(Integer.parseInt(score));
+			
+			flag=quizService.insertScore(scoreDto);
+			
+			
+			if(flag==0) {
+				System.out.println("User Quiz insert fail");
+				map.put("success", null);
+				return map;
+			}
+			else {
+				System.out.println("User Quiz insert success");
+				map.put("success","true");
+				return map;
+			}
+			
+		}else {//중복있으면
+			map.put("success","false");
+			return map;
+		}				
 		
 		
 	}
-//	@PostMapping
-//	public Map<String,Object> check(@RequestBody Map<String, Object> requestParam, 
-//			@AuthenticationPrincipal CustomUserDetails user,
-//			HttpServletResponse response){
-//		Long userId=user.getUserId();
-//		
-//		
-////		if() {
-////			response.setStatus(400);
-////		}
-//		
-//		
-//		return null;
-//	}
 	
 
 }

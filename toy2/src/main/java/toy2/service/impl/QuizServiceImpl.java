@@ -1,8 +1,10 @@
 package toy2.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -10,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import toy2.dao.QuizDao;
+import toy2.dao.ScoreDao;
 import toy2.dao.UserQuizDao;
 import toy2.dto.QuizDto;
 import toy2.dto.ScoreDto;
 import toy2.dto.UserQuizDto;
 import toy2.service.QuizService;
+import toy2.service.security.CustomUserDetails;
 
 @Service
 public class QuizServiceImpl implements QuizService{
@@ -22,6 +26,8 @@ public class QuizServiceImpl implements QuizService{
 	private QuizDao quizDao;
 	@Autowired
 	private UserQuizDao userQuizDao;
+	@Autowired
+	private ScoreDao scoreDao;
 	
 	
 	
@@ -78,10 +84,35 @@ public class QuizServiceImpl implements QuizService{
 
 
 	@Override
+	public int insertScore(ScoreDto scoreDto) {
+		int success=scoreDao.insertScore(scoreDto);
+		
+		return success;
+		
+	}
+
+
+
+	@Override
+	public Boolean checkExistAnswerer(Long answererId){
+		ScoreDto scoreDto= scoreDao.checkAnswerer(answererId);
+
+		
+		if(scoreDto==null) {//중복 없으면		
+			return true;
+		}else { 			//중복 있으면 false
+			
+			return false;
+		}
+		
+		
+	}
+
+
+
+	@Override
 	public List<ScoreDto> getScore(Long userId) {
 		// TODO Auto-generated method stub
-		
-		
 		return null;
 	}
 	

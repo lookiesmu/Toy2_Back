@@ -1,8 +1,8 @@
 package toy2.dto;
 
 public class ScoreDto {
-	private int examiner;
-	private int answerer;
+	private Long examiner;
+	private Long answerer;
 	private int score;
 	
 	
@@ -11,16 +11,16 @@ public class ScoreDto {
 	public String toString() {
 		return "ScoreDto [examiner=" + examiner + ", answerer=" + answerer + ", score=" + score + "]";
 	}
-	public int getExaminer() {
+	public Long getExaminer() {
 		return examiner;
 	}
-	public void setExaminer(int examiner) {
+	public void setExaminer(Long examiner) {
 		this.examiner = examiner;
 	}
-	public int getAnswerer() {
+	public Long getAnswerer() {
 		return answerer;
 	}
-	public void setAnswerer(int answerer) {
+	public void setAnswerer(Long answerer) {
 		this.answerer = answerer;
 	}
 	public int getScore() {
